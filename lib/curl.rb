@@ -1,5 +1,6 @@
 require 'curb'
 require 'uri'
+require 'cgi'
 
 # expose shortcut methods
 module Curl
@@ -42,7 +43,7 @@ module Curl
   end
 
   def self.urlalize(url, params={})
-    query_str = params.map {|k,v| "#{URI.escape(k.to_s)}=#{URI.escape(v.to_s)}" }.join('&')
+    query_str = params.map {|k,v| "#{CGI.escape(k.to_s)}=#{CGI.escape(v.to_s)}" }.join('&')
     if url.match(/\?/)
       "#{url}&#{query_str}"
     else
